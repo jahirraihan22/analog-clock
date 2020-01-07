@@ -6,7 +6,7 @@ var customFonts;
 var x = 0, y = 0;
 var am_pm = "";
 function preload(){
-   customFonts = loadFont('FredokaOne-Regular.ttf');
+    customFonts = loadFont('FredokaOne-Regular.ttf');
 }
     
 function setup() {
@@ -15,7 +15,6 @@ function setup() {
 }
 
 function draw() {
-
     background(0);
     push();
     translate(300,200);
@@ -27,7 +26,7 @@ function draw() {
         b = random(0,255);
     }
     radius += dx;
-    
+   
     push();
     strokeWeight(8);
     noFill();
@@ -45,13 +44,16 @@ function draw() {
     var sec = second();
     var min = minute();
     var hr = hour();
-    if(hr > 12){
-        am_pm = " PM";
-    }
-    else{
+    if(hr >= 0 && hr <= 11){
         am_pm = " AM";
     }
-    
+    else if(hr >= 12 && hr <= 23){
+        if(hr > 12){
+            hr = hr % 12;
+        }
+        am_pm = " PM";
+    }
+
     strokeWeight(8);
     noFill();
     stroke(255,180,123);
@@ -93,14 +95,14 @@ function draw() {
     fill(r,g,b);
     textFont(customFonts);
     for(let i = 0 ; i < 360; i+=30){
-        rotate(30 -.6);
+        rotate(30 - .6);
         stroke(g,r,b);
         point(115,115);
     }
     pop();
    
     pop();
-    var hourTxt = (hr%12).toString();
+    var hourTxt = hr.toString();
     var minTxt = min.toString();
     var secTxt = sec.toString();
     
