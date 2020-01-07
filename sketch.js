@@ -45,7 +45,6 @@ function draw() {
     var sec = second();
     var min = minute();
     var hr = hour();
-    console.log(hr);
     if(hr > 12){
         am_pm = " PM";
     }
