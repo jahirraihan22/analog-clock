@@ -4,13 +4,13 @@ var r, g, b;
 var px,py;
 var customFonts;
 var x = 0, y = 0;
-
+var am_pm = "";
 function preload(){
    customFonts = loadFont('FredokaOne-Regular.ttf');
 }
     
 function setup() {
-    createCanvas(400, 400);
+    createCanvas(600, 420);
     angleMode(DEGREES);
 }
 
@@ -18,16 +18,22 @@ function draw() {
 
     background(0);
     push();
-    translate(200,200);
+    translate(300,200);
     rotate(-90);
-    
-    if(radius > height || radius == 0){
-        dx = -dx;
+    if(radius > 240 || radius == 0){
+        dx = - dx;
         r = random(0,255);
         g = random(0,255);
         b = random(0,255);
     }
     radius += dx;
+    
+    push();
+    strokeWeight(8);
+    noFill();
+    stroke(b,g,r);
+    arc(0,0,350,350,0,360);
+    pop();
     
     push();
     strokeWeight(8);
@@ -39,6 +45,13 @@ function draw() {
     var sec = second();
     var min = minute();
     var hr = hour();
+    console.log(hr);
+    if(hr > 12){
+        am_pm = " PM";
+    }
+    else{
+        am_pm = " AM";
+    }
     
     strokeWeight(8);
     noFill();
@@ -52,7 +65,7 @@ function draw() {
     
     stroke(127,255,103);
     let hourAngle = map(hr % 12 , 0, 12,0, 360);
-    arc(0,0,260,260,0,hourAngle);    
+    arc(0,0,260,260,0,hourAngle);
     
     push();
     stroke(255,180,123);
@@ -74,26 +87,38 @@ function draw() {
     
     stroke(255);
     point(0,0);
+    
+    push();
+    rotate(-70);
+    textSize(32);
+    fill(r,g,b);
+    textFont(customFonts);
+    for(let i = 0 ; i < 360; i+=30){
+        rotate(30 -.6);
+        stroke(g,r,b);
+        point(115,115);
+    }
     pop();
+   
+    pop();
+    var hourTxt = (hr%12).toString();
+    var minTxt = min.toString();
+    var secTxt = sec.toString();
     
-    var hrtxt = (hr%12).toString();
-    var mintxt = min.toString();
-    var sectxt = sec.toString();
-    
-    if(hrtxt.length < 2){
-        hrtxt = "0" + hrtxt;
+    if(hourTxt.length < 2){
+        hourTxt = "0" + hourTxt;
     }
     
-    if(mintxt.length < 2){
-        mintxt = "0" + mintxt;
+    if(minTxt.length < 2){
+        minTxt = "0" + minTxt;
     }
     
-    if(sectxt.length < 2){
-        sectxt = "0"+ sectxt;
+    if(secTxt.length < 2){
+        secTxt = "0"+ secTxt;
     }
     
     textSize(32);
     fill(r,g,b);
     textFont(customFonts);
-    text(hrtxt + ' : ' + mintxt + ' : ' + sectxt,width/3,height - 10);
+    text(hourTxt + ' : ' + minTxt + ' : ' + secTxt + am_pm,width/3,height - 10);
 }
