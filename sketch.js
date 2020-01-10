@@ -90,12 +90,9 @@ function draw() {
     point(0,0);
     
     push();
-    rotate(-70);
-    textSize(32);
-    fill(r,g,b);
-    textFont(customFonts);
+    rotate(-75);
     for(let i = 0 ; i < 360; i+=30){
-        rotate(30 - .6);
+        rotate(30);
         stroke(g,r,b);
         point(115,115);
     }
